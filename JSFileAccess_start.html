@@ -16,7 +16,27 @@
 
 	</style>
 	<script>
+		function handleFileSelect (evt) {
+			//Files to be read:
+			var files = evt.target.files;
+			var f = files[0];
+			var reader = new FileReader();
 
+			//Capture the file information:
+			reader.onload = (
+				function (theFile) {
+					return function(e) {
+						jQuery ('#output').
+								val(e.target.result);
+					};
+				}
+
+			)(f);
+
+			//Actually call the above
+			reader.readAsText(f, "UTF-8")
+
+		}
 	</script>
 </head>
 <body>
@@ -29,7 +49,16 @@
 	</div>
 </form>
 <script>
-
+	var input = document.getElementById("upload");
+	input.addEventListener (
+			'change',
+			handleFileSelect,
+			false
+	);
+	//Parameters;
+	//	1. Define the event (i.e change)
+	//	2, define the behavior (i.e. our function)
+	//	3. Options (usually false unless present)
 
 </script>
 </body>
